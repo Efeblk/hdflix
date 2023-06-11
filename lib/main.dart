@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:hdflix/login/main_page.dart';
-import 'login/auth_page.dart';
+import 'routes/routes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,8 +14,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: MainPage(),
+    return MaterialApp.router(
+      title: 'Starter',
+      debugShowCheckedModeBanner: false,
+      routerConfig: routes,
     );
   }
 }

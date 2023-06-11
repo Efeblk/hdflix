@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'drawer_content.dart';
 
 class NetflixHomePage extends StatelessWidget {
   @override
@@ -11,11 +12,15 @@ class NetflixHomePage extends StatelessWidget {
           height: 30,
         ),
       ),
+      endDrawer: Drawer(
+        child: DrawerContent(),
+      ),
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage(
-                'assets/images/background.jpg'), // Replace with your background image asset
+              'assets/images/background.jpg',
+            ), // Replace with your background image asset
             fit: BoxFit.cover,
           ),
         ),
@@ -47,7 +52,8 @@ class NetflixHomePage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8.0),
                       image: DecorationImage(
                         image: AssetImage(
-                            'assets/images/dizi/dizi_$index.jpg'), // Replace with your movie poster image assets
+                          'assets/images/dizi/dizi_$index.jpg',
+                        ), // Replace with your movie poster image assets
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -83,7 +89,8 @@ class NetflixHomePage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8.0),
                     image: DecorationImage(
                       image: AssetImage(
-                          'assets/images/film/film_$index.png'), // Replace with your show poster image assets
+                        'assets/images/film/film_$index.png',
+                      ), // Replace with your show poster image assets
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -117,7 +124,8 @@ class NetflixHomePage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8.0),
                       image: DecorationImage(
                         image: AssetImage(
-                            'assets/images/top10/top_$index.jpg'), // Replace with your movie poster image assets
+                          'assets/images/top10/top_$index.jpg',
+                        ), // Replace with your movie poster image assets
                         fit: BoxFit.cover,
                       ),
                     ),

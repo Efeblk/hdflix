@@ -2,8 +2,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hdflix/Pages/MainPage/netflixhomepage.dart';
-
-import '../Pages/MainPage/mobile.dart';
 import 'auth_page.dart';
 
 class MainPage extends StatelessWidget {
