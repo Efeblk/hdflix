@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "280836008557",
+    "project_id": "hdflix-a2c38",
+    "storage_bucket": "hdflix-a2c38.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:280836008557:android:e0f5291893ba68dec2ad64",
+        "android_client_info": {
+          "package_name": "com.example.hdflix"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "280836008557-ba09dh98h6dgd4ajha56vg476cfgbcj0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAslcX95YIofr7lMH5VfXzIGatN-TKSSb4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "280836008557-ba09dh98h6dgd4ajha56vg476cfgbcj0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
