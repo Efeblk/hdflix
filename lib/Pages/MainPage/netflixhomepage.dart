@@ -8,7 +8,7 @@ class NetflixHomePage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: Image.asset(
-          'assets/images/netflix_logo.png', // Replace with your Netflix logo image asset
+          'assets/images/hdlix_logo.png', // Replace with your Netflix logo image asset
           height: 30,
         ),
       ),
