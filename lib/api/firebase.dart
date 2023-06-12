@@ -1,25 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'userinfo.dart';
 
-class Firebase {
-  Future signUp() async {
+class FirebaseSystem {
+  Future signUp(Userinfo userInfo) async {
     // create user
-    if (passwordConfirmed()) {
-      User user = (await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _email,
-        password: _password,
-      ))
-          .user!;
-      // add user details
-      if (user != null) {
-        addUserDetails(
-          user.uid,
-          _firstNameController.text.trim(),
-          _lastNameController.text.trim(),
-          _emailController.text.trim(),
-          int.parse(_ageController.text.trim()),
-        );
-      }
+    User user = (await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: userInfo.email,
+      password: userInfo.password,
+    ))
+        .user!;
+    // add user details
+    if (user != null) {
+      userInfo.uid = user.uid;
+      addUserDetails(
+        user.uid,
+        userInfo.firstName,
+        userInfo.lastName,
+        userInfo.email,
+        userInfo.age,
+      );
     }
   }
 

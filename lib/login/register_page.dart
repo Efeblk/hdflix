@@ -1,8 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:netflix/api/userinfo.dart';
+import 'package:hdflix/api/firebase.dart';
+import 'package:hdflix/api/userinfo.dart';
 
 class RegisterPage extends StatefulWidget {
   final VoidCallback showLoginPage;
@@ -16,6 +15,8 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  late final Userinfo userinfo;
+  FirebaseSystem firebaseSystem = FirebaseSystem();
   // text controllers
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -34,36 +35,18 @@ class _RegisterPageState extends State<RegisterPage> {
     super.dispose();
   }
 
-  Future signUp() async {
-    // create user
+  void signHelper() {
     if (passwordConfirmed()) {
-      User user = (await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: _emailController.text.trim(),
-        password: _passwordController.text.trim(),
-      ))
-          .user!;
-      // add user details
-      if (user != null) {
-        addUserDetails(
-          user.uid,
-          _firstNameController.text.trim(),
-          _lastNameController.text.trim(),
-          _emailController.text.trim(),
-          int.parse(_ageController.text.trim()),
-        );
-      }
+      userinfo = Userinfo(
+          uid: "",
+          firstName: _firstNameController.text.trim(),
+          password: _passwordController.text.trim(),
+          email: _emailController.text.trim(),
+          age: int.parse(_ageController.text.trim()),
+          lastName: _lastNameController.text.trim());
+      //signup?
+      firebaseSystem.signUp(userinfo);
     }
-  }
-
-  Future addUserDetails(String uid, String firstName, String lastName,
-      String email, int age) async {
-    await FirebaseFirestore.instance.collection('users').add({
-      'uid': uid,
-      'first name': firstName,
-      'last name': lastName,
-      'email': email,
-      'age': age,
-    });
   }
 
   bool passwordConfirmed() {
@@ -240,7 +223,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: GestureDetector(
-                    onTap: signUp,
+                    onTap: signHelper,
                     child: Container(
                       padding: EdgeInsets.all(20),
                       decoration: BoxDecoration(
