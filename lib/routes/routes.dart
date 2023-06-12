@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:hdflix/Pages/MainPage/netflixhomepage.dart';
+import 'package:hdflix/Pages/MainPage/settings/settings_screen.dart';
 import 'package:hdflix/login/auth_page.dart';
 import 'package:hdflix/login/main_page.dart';
 import 'package:hdflix/profile.dart';
@@ -24,6 +25,10 @@ final routes = GoRouter(
     GoRoute(
       path: '/profile',
       builder: (context, state) => ProfilePage(),
+    ),
+    GoRoute(
+      path: '/settings',
+      builder: (context, state) => SettingsScreen(),
     ),
   ],
 );

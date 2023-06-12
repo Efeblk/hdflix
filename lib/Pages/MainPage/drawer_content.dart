@@ -1,7 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../api/firebase.dart';
 
-class DrawerContent extends StatelessWidget {
+class DrawerContent extends StatefulWidget {
+  @override
+  _DrawerContentState createState() => _DrawerContentState();
+}
+
+class _DrawerContentState extends State<DrawerContent> {
+  final FirebaseSystem _firebaseSystem = FirebaseSystem();
+  String _userName = '';
+  String _userEmail = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadUserInfoFromPrefs();
+  }
+
+  Future<void> _loadUserInfoFromPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _userName = prefs.getString('firstName') ?? '';
+      _userEmail = prefs.getString('email') ?? '';
+    });
+  }
+
+  Future<void> signOut(BuildContext context) async {
+    try {
+      await _firebaseSystem.signOut();
+      Navigator.popUntil(context, ModalRoute.withName('/'));
+    } catch (e) {
+      // Handle sign-out error
+      print('Sign-out error: $e');
+      // Display an error message or handle the error as needed
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -10,14 +46,14 @@ class DrawerContent extends StatelessWidget {
         children: <Widget>[
           UserAccountsDrawerHeader(
             accountName: Text(
-              'Your Name',
+              _userName,
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
             accountEmail: Text(
-              'your_email@example.com',
+              _userEmail,
               style: TextStyle(
                 fontSize: 16,
               ),
@@ -37,7 +73,7 @@ class DrawerContent extends StatelessWidget {
               style: TextStyle(color: Colors.white),
             ),
             onTap: () {
-              // Handle Settings tap
+              GoRouter.of(context).push("/settings");
             },
           ),
           ListTile(
@@ -47,7 +83,7 @@ class DrawerContent extends StatelessWidget {
               style: TextStyle(color: Colors.white),
             ),
             onTap: () {
-              // Handle Exit tap
+              signOut(context);
             },
           ),
         ],

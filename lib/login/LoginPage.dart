@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../api/firebase.dart';
+import '../api/userinfo.dart';
 import 'forgot_pw_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -12,15 +14,23 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  late final Userinfo userinfo;
+  FirebaseSystem firebaseSystem = FirebaseSystem();
+
   // text controllers
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  Future signIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: _emailController.text.trim(),
-      password: _passwordController.text.trim(),
-    );
+  void signHelper() {
+    userinfo = Userinfo(
+        uid: "",
+        firstName: "",
+        password: _passwordController.text.trim(),
+        email: _emailController.text.trim(),
+        age: 0,
+        lastName: "");
+    //signup?
+    firebaseSystem.signIn(userinfo);
   }
 
   @override
@@ -40,10 +50,7 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(
-                  Icons.android,
-                  size: 100,
-                ),
+                Image.asset('assets/images/hdlix_logo.png'),
                 SizedBox(height: 75),
 
                 // Hello again!
@@ -143,7 +150,7 @@ class _LoginPageState extends State<LoginPage> {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: GestureDetector(
-                    onTap: signIn,
+                    onTap: signHelper,
                     child: Container(
                       padding: EdgeInsets.all(20),
                       decoration: BoxDecoration(

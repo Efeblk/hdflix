@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -11,11 +12,14 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   late File _image;
   final picker = ImagePicker();
+  String _userName = '';
+  String _userEmail = '';
 
   @override
   void initState() {
     super.initState();
     _loadProfilePicture();
+    _loadUserInfoFromPrefs();
   }
 
   Future<void> _loadProfilePicture() async {
@@ -28,6 +32,14 @@ class _ProfilePageState extends State<ProfilePage> {
       } else {
         _image = File('assets/images/profile_picture.jpg');
       }
+    });
+  }
+
+  Future<void> _loadUserInfoFromPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _userName = prefs.getString('firstName') ?? '';
+      _userEmail = prefs.getString('email') ?? '';
     });
   }
 
@@ -106,7 +118,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             SizedBox(height: 24.0),
             Text(
-              'John Doe',
+              _userName,
               style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
@@ -120,7 +132,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 color: Colors.white,
               ),
               title: Text(
-                'john.doe@example.com',
+                _userEmail,
                 style: TextStyle(
                   color: Colors.white,
                 ),
